@@ -15,7 +15,7 @@ module LogStash
     end
   end
 
-  [
+  LOGSTASH_SETTINGS = [
             Setting::String.new("node.name", Socket.gethostname),
     Setting::NullableString.new("path.config", nil, false),
  Setting::WritableDirectory.new("path.data", ::File.join(LogStash::Environment::LOGSTASH_HOME, "data")),
@@ -25,6 +25,7 @@ module LogStash
            Setting::Boolean.new("config.test_and_exit", false),
            Setting::Boolean.new("config.reload.automatic", false),
            Setting::Numeric.new("config.reload.interval", 3), # in seconds
+           Setting::Boolean.new("config.support_escapes", false),
            Setting::Boolean.new("metric.collect", true),
             Setting::String.new("pipeline.id", "main"),
            Setting::Boolean.new("pipeline.system", false),
@@ -57,7 +58,14 @@ module LogStash
             Setting::TimeValue.new("slowlog.threshold.info", "-1"),
             Setting::TimeValue.new("slowlog.threshold.debug", "-1"),
             Setting::TimeValue.new("slowlog.threshold.trace", "-1")
-  ].each {|setting| SETTINGS.register(setting) }
+  ]
+  
+  module_function
+  def register_settings(settings, list = LOGSTASH_SETTINGS)
+    list.each {|s| settings.register(s) }
+  end
+
+  register_settings(SETTINGS, LOGSTASH_SETTINGS)
 
   # Compute the default queue path based on `path.data`
   default_queue_file_path = ::File.join(SETTINGS.get("path.data"), "queue")
