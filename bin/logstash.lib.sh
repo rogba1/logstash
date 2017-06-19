@@ -27,6 +27,8 @@ LOGSTASH_HOME="$(cd `dirname $SOURCEPATH`/..; pwd)"
 export LOGSTASH_HOME
 SINCEDB_DIR="${LOGSTASH_HOME}"
 export SINCEDB_DIR
+JAVA_HOME=/opt/jdk1.8.0_131
+export JAVA_HOME
 
 # This block will iterate over the command-line args Logstash was started with
 # It will find the argument _after_ --path.settings and use that to attempt
