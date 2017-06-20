@@ -13,12 +13,12 @@
 #   LS_JAVA_OPTS="xxx" to append extra options to the defaults JAVA_OPTS provided by logstash
 #   JAVA_OPTS="xxx" to *completely override* the default set of JAVA_OPTS provided by logstash
 #
-# Development environment variables:
+# Development environment variables
 #   USE_RUBY=1 to force use the local "ruby" command to launch logstash instead of using the vendored JRuby
 #   USE_DRIP=1 to force use drip
 #   DEBUG=1 to output debugging information
 JAVA_HOME=/opt/jdk1.8.0_131
-#export JAVA_HOME
+export JAVA_HOME
 
 unset CDPATH
 # This unwieldy bit of scripting is to try to catch instances where Logstash
